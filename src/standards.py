@@ -49,6 +49,10 @@ if os.path.basename(OptmavenDirectory) != OptmavenName:
 if not os.path.isdir(ExperimentsDirectory):
     os.mkdir(ExperimentsDirectory)
 
+# Make the PDB directory.
+if not os.path.isdir(PDBDirectory):
+    os.mkdir(PDBDirectory)
+
 # Maximum line length in console.
 ConsoleWidth = 80
 # Maximum number of list items to print.
