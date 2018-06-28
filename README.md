@@ -13,6 +13,7 @@ NumPy 1.13+: http://www.numpy.org/
 SciPy 0.19+: https://www.scipy.org/
 Biopython 1.7+: https://biopython.org/
 VMD 1.9+: http://www.ks.uiuc.edu/Research/vmd/
+VMD TopoTools 1.7+: https://sites.google.com/site/akohlmey/software/topotools
 NAMD 2.12+: http://www.ks.uiuc.edu/Research/namd/
 CHARMM 34+: https://www.charmm.org/
 CPLEX - Python API: https://www.ibm.com/support/knowledgecenter/SSSA5P_12.7.1/ilog.odms.cplex.help/CPLEX/GettingStarted/topics/set_up/setup_overview.html
