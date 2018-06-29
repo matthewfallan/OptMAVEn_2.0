@@ -49,6 +49,10 @@ if os.path.basename(OptmavenDirectory) != OptmavenName:
 if not os.path.isdir(ExperimentsDirectory):
     os.mkdir(ExperimentsDirectory)
 
+# Make the PDB directory.
+if not os.path.isdir(PDBDirectory):
+    os.mkdir(PDBDirectory)
+
 # Maximum line length in console.
 ConsoleWidth = 80
 # Maximum number of list items to print.
@@ -74,6 +78,12 @@ HetAtmOptions = [HetAtmAsk, HetAtmInclude, HetAtmExclude]
 
 # Default PBS settings.
 DefaultWalltime = 86399  # 23 hours, 59 minutes, 59 seconds
+MaxNodes = 5
+DefaultNodes = 1
+MaxPpn = 20
+DefaultPpn = 4
+MaxPmem = 4
+DefaultPmem = 4
 DefaultBatchSize = 1
 PbsQsub = "qsub"
 PbsArrayId = "$PBS_ARRAYID"
