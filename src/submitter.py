@@ -159,7 +159,7 @@ class PbsBatchSubmitter(object):
             self.experiment.run_next()
 
 
-def script_initial(queue, walltime, array=0):
+def script_initial(queue, walltime, array=0, pmem=4, nodes=1, ppn=4):
     """ Create the text needed to set up a script for submission to the PBS queue. """
     # Convert the walltime (given in seconds) to hours:minutes:seconds.
     secs = int(walltime % 60)
@@ -174,6 +174,8 @@ def script_initial(queue, walltime, array=0):
     lines = ["#!/bin/sh",
              "#PBS -A {}".format(queue),
              "#PBS -l walltime={}".format(walltime_text),
+             "#PBS -l pmem={}gb".format(standards.DefaultPmem),
+             "#PBS -l nodes={}:ppn={}".format(standards.DefaultNodes, standards.DefaultPpn),
              "#PBS -j oe",
              "#PBS -o {}".format(destination)]
     if array > 0:
