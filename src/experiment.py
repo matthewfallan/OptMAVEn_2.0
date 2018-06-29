@@ -126,7 +126,7 @@ class Experiment(object):
             self.add_benchmark(du)
         return du
 
-    def ask(self, attribute, number=False, valid_path=False):
+    def ask(self, attribute, dtype=str, valid_path=False):
         """ Ask for an attribute of the experiment.
         number: must the attribute be numeric?
         valid_path: must the attribute be a valid path name?
@@ -138,8 +138,8 @@ class Experiment(object):
         prompt = "Please enter the {} of {}: ".format(attribute, name)
         do = True
         while do:
-            if number:
-                answer = user_input.get_number(prompt)
+            if dtype in [int, float]:
+                answer = user_input.get_number(prompt, dtype)
             else:
                 answer = user_input.get(prompt)
             if not valid_path or standards.is_path_component(answer):
@@ -386,7 +386,7 @@ class AntibodyInteractionExperiment(InteractionExperiment):
         self.antigen_chain_ids = [chain.get_id() for chain in antigen_chains_selected]
         self.select_epitope_residues(antigen_chains_selected)
         # Create the antigen-antibody complex.
-        self.antigen_position = [self.ask(pos, number=True) for pos in standards.PositionOrder]
+        self.antigen_position = [self.ask(pos, dtype=float) for pos in standards.PositionOrder]
         self.energies = OrderedDict()
         do = True
         while do:
@@ -491,7 +491,7 @@ class ResidueContactExperiment(Experiment):
             for chain in group:
                 group_from_chain[chain] = group_number
         # The user specifies the maximum distance at which residues can be considered interacting.
-        self.cutoff = self.ask("cutoff distance", number=True)
+        self.cutoff = self.ask("cutoff distance", dtype=float)
         # Find the inter-residue contacts.
         contacts = self.molecule.interchain_residue_contacts(g1, g2, self.cutoff)
         # Restructure the contact map so that it looks like {group_number: {chain: [residue, residue, ...], chain: ...}, group_number: ...}
@@ -556,7 +556,7 @@ class TransformMoleculeExperiment(Experiment):
             else:
                 do = False
         # Get the rotation angle.
-        rotation_degrees = self.ask("rotation angle (in degrees)", number=True)
+        rotation_degrees = self.ask("rotation angle (in degrees)", dtype=float)
         rotation_degrees -= np.floor(rotation_degrees / 360.0)
         # Get the rotation axis.
         do = not np.isclose(rotation_degrees, 0.0)
